@@ -1,0 +1,22 @@
+{
+  "name": "discord-presence",
+  "version": "0.1.0",
+  "description": "Shows Claude Code as one Discord activity for the whole app: the active chat title, time in that chat, tokens used today and what Claude is doing. Plugin only, needs Python 3.",
+  "author": { "name": "Mridul Negi", "url": "https://github.com/MridulNegi2005" },
+  "repository": "https://github.com/MridulNegi2005/claude-discord-presence",
+  "license": "MIT",
+  "userConfig": {
+    "clientId": {
+      "type": "string",
+      "title": "Discord Application ID (override)",
+      "description": "Leave empty to use the built-in app. Set it to show your own app name on Discord.",
+      "default": ""
+    },
+    "imageBase": {
+      "type": "string",
+      "title": "Image base URL (override)",
+      "description": "An https folder URL that holds large.png, thinking.png, tools.png, waiting.png and idle.png. Leave empty for the built-in images.",
+      "default": ""
+    }
+  }
+}
