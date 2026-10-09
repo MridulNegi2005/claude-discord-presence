@@ -335,7 +335,8 @@ def own(client_id, run_dir, projects_dir, image_base):
                 log(f"waiting: {err}")
 
         if connected and sessions:
-            active = max(sessions, key=lambda s: float(s.get("lastActive", 0)))
+            viewed = [s for s in sessions if s.get("isViewed")]
+            active = max(viewed or sessions, key=lambda s: float(s.get("lastActive", 0)))
             activity = build_activity(active, titles.get(active.get("sessionId")), total, image_base)
             if activity != sent and time.monotonic() - last_send >= MIN_SEND_GAP:
                 try:

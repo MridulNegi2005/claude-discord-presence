@@ -15,6 +15,7 @@ let beat = {
   startedAt: 0,
   lastActive: 0,
   heartbeat: 0,
+  isViewed: false,
   closed: false,
 }
 let isTurnRunning = false
@@ -77,6 +78,7 @@ export const register: Register = (on, options) => {
       startedAt: (await $.session.usage()).startedAt,
       lastActive: Date.now(),
       heartbeat: 0,
+      isViewed: (await $.session.surfaces()).length > 0,
       closed: false,
     }
     isTurnRunning = false
@@ -86,6 +88,22 @@ export const register: Register = (on, options) => {
     void runHelper($, clientId, imageBase, `${dir}/projects`)
 
     return started
+  })
+
+  // The desktop app attaches a window to the chat on screen and detaches it
+  // when the person switches away, so attach marks this chat as the viewed one.
+  on('session.attach', async ($, e, next) => {
+    beat.isViewed = true
+    beat.lastActive = Date.now()
+    await writeBeat($)
+    return next(e)
+  })
+
+  on('session.detach', async ($, e, next) => {
+    const result = await next(e)
+    beat.isViewed = (await $.session.surfaces()).length > 0
+    await writeBeat($)
+    return result
   })
 
   on('turn.start', async ($, e, next) => {

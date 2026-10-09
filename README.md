@@ -13,7 +13,7 @@ The plugin shows one activity for the full Claude Code app, also when many chats
 | Part of the card | Content |
 |---|---|
 | Name | Claude Code |
-| Line 1 | The title of the chat that you used last |
+| Line 1 | The title of the chat on your screen |
 | Line 2 | The tokens that all chats used today, and the current state |
 | Timer | The time since the chat started |
 | Badge | An icon for the current state |
@@ -39,7 +39,13 @@ The card clears when the last Claude Code session closes.
 
 ### Session files
 
-Each session writes a small JSON file to `<config dir>/discord-presence/`. The config dir is `CLAUDE_CONFIG_DIR`, or `~/.claude` when that variable is not set. The file holds the session ID, the state, the start time and the time of the last activity. The session writes the file again every 60 seconds. The helper ignores a file that is older than 150 seconds.
+Each session writes a small JSON file to `<config dir>/discord-presence/`. The config dir is `CLAUDE_CONFIG_DIR`, or `~/.claude` when that variable is not set. The file holds the session ID, the state, the start time, the time of the last activity and whether a window shows the chat. The session writes the file again every 60 seconds. The helper ignores a file that is older than 150 seconds.
+
+### The chat on your screen
+
+The desktop app attaches a window to the chat that you look at. It detaches the window when you go to a different chat. The plugin uses these two events. The card changes to the new chat within a few seconds, also when you do not send a message.
+
+When no chat has a window, the card shows the chat that was active last.
 
 ### Chat title
 
