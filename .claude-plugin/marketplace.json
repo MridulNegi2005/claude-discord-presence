@@ -1,0 +1,12 @@
+{
+  "name": "claude-discord-presence",
+  "description": "Discord Rich Presence for Claude Code, as a plugin only.",
+  "owner": { "name": "Mridul Negi", "url": "https://github.com/MridulNegi2005" },
+  "plugins": [
+    {
+      "name": "discord-presence",
+      "source": "./",
+      "description": "Shows the active Claude Code chat, its time, today's tokens and Claude's state as your Discord activity."
+    }
+  ]
+}
